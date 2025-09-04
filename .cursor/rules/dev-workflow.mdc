@@ -1,0 +1,107 @@
+---
+description: Fluxo de desenvolvimento padronizado para o projeto user-contact
+globs: **/*
+alwaysApply: true
+---
+
+# Fluxo de Desenvolvimento - User Contact
+
+## **Contexto Inicial**
+
+-   **Tarefa**: Pode ser fornecida diretamente ou obtida via Taskmaster MCP
+-   **Objetivo**: Seguir rigorosamente o fluxo padronizado abaixo
+
+## **Etapas Obrigatórias**
+
+### **1. Análise e Planejamento**
+
+-   **Compreender** o escopo completo da tarefa
+-   **Criar** um plano de ação detalhado
+-   **Identificar** dependências e requisitos técnicos
+
+### **2. Preparação do Ambiente**
+
+-   **Criar** feature branch isolada: `git checkout -b feature/nome-da-tarefa`
+-   **Verificar** status do repositório: `git status`
+
+### **3. Quality Assurance Pré-Desenvolvimento**
+
+-   **Executar** scripts de QA para validar estado inicial:
+    ```bash
+    vendor/bin/pint --dirty
+    php artisan test
+    ```
+-   **Garantir** que não há problemas prévios no código
+
+### **4. Desenvolvimento**
+
+-   **Implementar** a solução seguindo as especificações
+-   **Seguir** padrões de código do projeto
+-   **Documentar** mudanças significativas
+
+### **5. Quality Assurance Pós-Desenvolvimento**
+
+-   **Executar** novamente os scripts de QA:
+    ```bash
+    vendor/bin/pint --dirty
+    php artisan test
+    ```
+-   **Validar** que o desenvolvimento atende aos padrões de qualidade
+
+### **6. Commit e Versionamento**
+
+-   **Adicionar** arquivos modificados: `git add .`
+-   **Criar** commit descritivo: `git commit -m "feat: descrição clara da implementação"`
+-   **Push** para repositório: `git push origin feature/nome-da-tarefa`
+
+### **7. Documentação e Log**
+
+-   **Utilizar** Basic Memory MCP projeto user-contact para registrar:
+    -   Tarefa completada
+    -   Principais mudanças implementadas
+    -   Decisões técnicas tomadas
+    -   Próximos passos (se houver)
+
+## **Comandos de Referência**
+
+### **QA Scripts**
+
+```bash
+# Formatação de código
+vendor/bin/pint --dirty
+
+# Testes
+php artisan test
+
+# Verificação de sintaxe (se aplicável)
+php -l arquivo.php
+```
+
+### **Git Workflow**
+
+```bash
+# Criar branch
+git checkout -b feature/nome-da-tarefa
+
+# Status e adicionar mudanças
+git status
+git add .
+
+# Commit e push
+git commit -m "feat: descrição da mudança"
+git push origin feature/nome-da-tarefa
+```
+
+## **Critérios de Sucesso**
+
+-   ✅ Código formatado corretamente (Pint)
+-   ✅ Todos os testes passando
+-   ✅ Feature branch criada e isolada
+-   ✅ Commit descritivo realizado
+-   ✅ Log registrado no Basic Memory
+
+## **Exceções e Problemas**
+
+-   **Se QA falhar**: Corrigir problemas antes de prosseguir
+-   **Se testes falharem**: Investigar e corrigir antes do commit
+-   **Se houver conflitos**: Resolver antes de continuar o desenvolvimento

@@ -1,0 +1,467 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Instalar e Configurar PHPStan",
+        "description": "Instalar PHPStan para análise estática de código e configurar com nível máximo de análise",
+        "details": "Instalar phpstan/phpstan via Composer, criar arquivo de configuração phpstan.neon com nível máximo de análise, configurar paths para app/ e tests/, adicionar script composer 'analyse' para executar vendor/bin/phpstan analyse",
+        "testStrategy": "Executar PHPStan e verificar se análise funciona sem erros de configuração",
+        "priority": "high",
+        "dependencies": [],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Instalar PHPStan via Composer",
+            "description": "Instalar phpstan/phpstan como dependência de desenvolvimento usando Composer",
+            "dependencies": [],
+            "details": "Executar comando 'composer require --dev phpstan/phpstan' para instalar PHPStan como dependência de desenvolvimento no projeto",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Criar arquivo de configuração phpstan.neon",
+            "description": "Criar arquivo phpstan.neon na raiz do projeto com configuração de nível máximo",
+            "dependencies": [
+              "1.1"
+            ],
+            "details": "Criar arquivo phpstan.neon na raiz com level: max, paths para app/ e tests/, e outras configurações necessárias para análise estática completa",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Adicionar script 'analyse' no composer.json",
+            "description": "Configurar script composer para execução do PHPStan",
+            "dependencies": [
+              "1.2"
+            ],
+            "details": "Adicionar script 'analyse': 'vendor/bin/phpstan analyse' na seção scripts do composer.json para facilitar execução da análise",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Executar primeira análise e ajustar configurações",
+            "description": "Testar funcionamento do PHPStan e fazer ajustes necessários na configuração",
+            "dependencies": [
+              "1.3"
+            ],
+            "details": "Executar 'composer run analyse' para primeira análise, identificar possíveis problemas de configuração e ajustar phpstan.neon conforme necessário",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Configurar Scripts de Quality Assurance no Composer",
+        "description": "Adicionar scripts de formatação, análise e testes no composer.json",
+        "details": "Adicionar scripts no composer.json: 'format' (vendor/bin/pint), 'analyse' (vendor/bin/phpstan analyse), 'test' (vendor/bin/phpunit), 'quality-check' que executa todos em sequência",
+        "testStrategy": "Executar cada script composer individualmente e verificar funcionamento correto",
+        "priority": "high",
+        "dependencies": [
+          1
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Adicionar scripts individuais no composer.json",
+            "description": "Configurar scripts format, analyse e test no arquivo composer.json",
+            "dependencies": [],
+            "details": "Adicionar seção 'scripts' no composer.json com: 'format': 'vendor/bin/pint', 'analyse': 'vendor/bin/phpstan analyse', 'test': 'vendor/bin/phpunit'",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Criar script quality-check integrado",
+            "description": "Implementar script que executa todos os scripts de QA em sequência com controle de erros",
+            "dependencies": [
+              "2.1"
+            ],
+            "details": "Adicionar script 'quality-check' que executa format, analyse e test em sequência, configurando controle de erros para interromper execução se algum falhar",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Validar funcionamento dos scripts",
+            "description": "Testar execução individual de cada script para garantir funcionamento correto",
+            "dependencies": [
+              "2.2"
+            ],
+            "details": "Executar composer format, composer analyse, composer test e composer quality-check individualmente, verificar saída de cada comando e confirmar que executam corretamente",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "Instalar e Configurar Filament",
+        "description": "Instalar Filament PHP para criação do painel administrativo",
+        "details": "Instalar filament/filament via Composer, executar php artisan filament:install --panels, configurar painel administrativo padrão, criar usuário admin inicial",
+        "testStrategy": "Acessar painel administrativo via navegador e verificar login funcional",
+        "priority": "high",
+        "dependencies": [
+          2
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Instalar pacote Filament via Composer",
+            "description": "Instalar o pacote filament/filament através do Composer",
+            "dependencies": [],
+            "details": "Executar comando 'composer require filament/filament' para instalar o pacote e todas suas dependências. Verificar se a instalação foi concluída com sucesso no composer.json e vendor/",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Executar comando de instalação do painel",
+            "description": "Executar o comando artisan para instalar o sistema de painéis do Filament",
+            "dependencies": [
+              "3.1"
+            ],
+            "details": "Executar 'php artisan filament:install --panels' para instalar e configurar o sistema de painéis. Verificar se os arquivos de configuração foram criados corretamente",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Configurar painel administrativo padrão",
+            "description": "Configurar as opções básicas do painel administrativo",
+            "dependencies": [
+              "3.2"
+            ],
+            "details": "Configurar o provider do painel em app/Providers/Filament/AdminPanelProvider.php, definir rota, middleware de autenticação, e outras configurações básicas do painel",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Criar usuário administrador inicial",
+            "description": "Criar o primeiro usuário com privilégios de administrador",
+            "dependencies": [
+              "3.3"
+            ],
+            "details": "Criar usuário admin via tinker ou seeder com comando 'php artisan tinker' e User::create() ou criar UserSeeder específico. Definir email, senha e demais campos obrigatórios",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Testar acesso e funcionalidade do painel",
+            "description": "Verificar se o painel administrativo está funcionando corretamente",
+            "dependencies": [
+              "3.4"
+            ],
+            "details": "Acessar /admin no navegador, testar login com usuário criado, verificar se dashboard carrega corretamente, testar logout e funcionalidades básicas do painel",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "Criar Migration e Model para Contatos",
+        "description": "Implementar estrutura de banco de dados para entidade Contato",
+        "details": "Criar migration para tabela contatos com campos: id, usuario_id (foreign key), tipo (enum: email/telefone), valor, timestamps. Criar model Contato com fillable, relacionamento belongsTo User, enum TipoContato",
+        "testStrategy": "Executar migration e verificar estrutura da tabela no banco, testar relacionamentos via Tinker",
+        "priority": "high",
+        "dependencies": [
+          3
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Criar enum TipoContato",
+            "description": "Implementar enum PHP 8 para tipos de contato (email/telefone)",
+            "dependencies": [],
+            "details": "Criar arquivo app/Enums/TipoContato.php usando enum PHP 8 com casos Email e Telefone, incluir métodos auxiliares para labels e valores",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Criar migration para tabela contatos",
+            "description": "Implementar migration com estrutura completa da tabela contatos",
+            "dependencies": [
+              "4.1"
+            ],
+            "details": "Usar artisan make:migration para criar tabela contatos com campos: id, usuario_id (foreign key para users), tipo (enum), valor (string), timestamps. Configurar índices e constraints apropriados",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Criar model Contato",
+            "description": "Implementar model Eloquent com relacionamentos e validações",
+            "dependencies": [
+              "4.1",
+              "4.2"
+            ],
+            "details": "Criar model Contato com fillable array, cast para enum TipoContato, relacionamento belongsTo User, validações específicas por tipo de contato",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Executar migration e testar estrutura",
+            "description": "Executar migration e validar funcionamento via Tinker",
+            "dependencies": [
+              "4.2",
+              "4.3"
+            ],
+            "details": "Executar php artisan migrate, usar Tinker para testar criação de contatos, validar relacionamentos com User, testar enum TipoContato e constraints de banco",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "title": "Atualizar Model User com Relacionamentos",
+        "description": "Adicionar campo data_nascimento e relacionamento com Contatos no model User",
+        "details": "Criar migration para adicionar campo data_nascimento (nullable) na tabela users, atualizar model User com fillable data_nascimento, cast data_nascimento como date, adicionar relacionamento hasMany para contatos",
+        "testStrategy": "Verificar relacionamento User->contatos via Tinker e testar busca de usuários com contatos",
+        "priority": "medium",
+        "dependencies": [
+          4
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Criar migration para campo data_nascimento",
+            "description": "Criar migration para adicionar campo data_nascimento (nullable) na tabela users",
+            "dependencies": [],
+            "details": "Executar php artisan make:migration add_data_nascimento_to_users_table, definir Schema::table('users') com $table->date('data_nascimento')->nullable(), executar migration com php artisan migrate",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Atualizar model User com campo data_nascimento",
+            "description": "Adicionar data_nascimento ao fillable e casts() do model User",
+            "dependencies": [
+              "5.1"
+            ],
+            "details": "Editar app/Models/User.php, adicionar 'data_nascimento' ao array $fillable, adicionar 'data_nascimento' => 'date' ao método casts(), seguir convenções existentes do model",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Implementar relacionamento hasMany para contatos",
+            "description": "Adicionar método contatos() no model User e testar relacionamento via Tinker",
+            "dependencies": [
+              "5.2"
+            ],
+            "details": "Adicionar método público contatos() retornando $this->hasMany(Contato::class, 'usuario_id'), testar relacionamento via php artisan tinker criando usuário e acessando $user->contatos, verificar funcionamento correto",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "title": "Criar Filament Resource para Usuários",
+        "description": "Implementar CRUD completo de usuários no painel administrativo",
+        "details": "Usar php artisan make:filament-resource User, configurar campos nome, email, data_nascimento no formulário, implementar tabela com colunas, paginação, filtros, exibir contatos relacionados na página de detalhes",
+        "testStrategy": "Testar todas operações CRUD via painel administrativo: criar, listar, editar, excluir usuários",
+        "priority": "high",
+        "dependencies": [
+          5
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Gerar UserResource via Artisan",
+            "description": "Usar comando artisan para criar o resource base do Filament para o modelo User",
+            "dependencies": [],
+            "details": "Executar 'php artisan make:filament-resource User' para gerar a estrutura base do resource, verificar se os arquivos foram criados corretamente em app/Filament/Resources/",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Configurar Formulário de Usuário",
+            "description": "Implementar campos do formulário para criação e edição de usuários",
+            "dependencies": [
+              "6.1"
+            ],
+            "details": "Configurar campos nome (TextInput), email (TextInput com validação de email), data_nascimento (DatePicker) no método form() do UserResource, adicionar validações obrigatórias",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Configurar Tabela de Listagem",
+            "description": "Implementar tabela com colunas, paginação e filtros para listagem de usuários",
+            "dependencies": [
+              "6.1"
+            ],
+            "details": "Configurar colunas nome, email, data_nascimento na tabela, implementar paginação padrão, adicionar filtros por data de cadastro e busca por nome/email no método table()",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Implementar Exibição de Contatos Relacionados",
+            "description": "Configurar visualização dos contatos associados ao usuário na página de detalhes",
+            "dependencies": [
+              "6.2",
+              "6.3"
+            ],
+            "details": "Criar seção na página de visualização/edição para exibir contatos relacionados usando RelationManager ou infolist, mostrar tipo e valor dos contatos",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Testar Operações CRUD Completas",
+            "description": "Validar todas as funcionalidades do UserResource através do painel administrativo",
+            "dependencies": [
+              "6.4"
+            ],
+            "details": "Testar criação de novos usuários, listagem com filtros e paginação, edição de dados existentes, exclusão de usuários, visualização de contatos relacionados, verificar validações e mensagens de erro",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "title": "Criar Filament Resource para Contatos",
+        "description": "Implementar CRUD completo de contatos no painel administrativo",
+        "details": "Usar php artisan make:filament-resource Contato, configurar select para usuario_id, select para tipo (email/telefone), campo valor, validações específicas por tipo, filtros por usuário e tipo na listagem",
+        "testStrategy": "Testar CRUD completo de contatos: criar contatos de diferentes tipos, associar a usuários, editar e excluir",
+        "priority": "high",
+        "dependencies": [
+          6
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Gerar ContatoResource usando Artisan",
+            "description": "Criar o resource base para Contato usando comando Artisan",
+            "dependencies": [],
+            "details": "Executar php artisan make:filament-resource Contato --generate --view para criar automaticamente o resource com formulários e tabelas básicas",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Configurar select para usuário com relacionamento",
+            "description": "Implementar campo select para associar contato ao usuário",
+            "dependencies": [
+              "7.1"
+            ],
+            "details": "Configurar Select::make('usuario_id') com options() baseado no relacionamento belongsTo, incluir searchable() para busca por nome do usuário",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Implementar select para tipo de contato",
+            "description": "Criar campo select para escolher tipo (email/telefone)",
+            "dependencies": [
+              "7.1"
+            ],
+            "details": "Adicionar Select::make('tipo') com opções 'email' e 'telefone', configurar reactive() para permitir validações condicionais baseadas na seleção",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Adicionar validações específicas por tipo",
+            "description": "Implementar validações condicionais para email e telefone",
+            "dependencies": [
+              "7.2",
+              "7.3"
+            ],
+            "details": "Criar validações no ContatoResource: email deve validar formato email válido, telefone deve validar formato brasileiro, usar Rules\\Conditional para aplicar validação baseada no tipo selecionado",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Configurar filtros por usuário e tipo na listagem",
+            "description": "Implementar filtros na tabela de listagem de contatos",
+            "dependencies": [
+              "7.1"
+            ],
+            "details": "Adicionar SelectFilter para usuário usando relacionamento, SelectFilter para tipo com opções email/telefone, configurar query scopes se necessário para otimizar filtros",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Testar todas operações CRUD e validações",
+            "description": "Executar testes completos do ContatoResource implementado",
+            "dependencies": [
+              "7.4",
+              "7.5"
+            ],
+            "details": "Testar criação de contatos email e telefone, validar campos obrigatórios, testar edição e exclusão, verificar funcionamento dos filtros, validar relacionamento com usuários",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "title": "Implementar Dashboard com Métricas",
+        "description": "Criar dashboard administrativo com contadores e estatísticas básicas",
+        "details": "Personalizar dashboard do Filament adicionando widgets: contador total de usuários, contador total de contatos, distribuição de contatos por tipo, gráfico de usuários cadastrados por mês",
+        "testStrategy": "Verificar exibição correta de métricas no dashboard e atualização em tempo real",
+        "priority": "medium",
+        "dependencies": [
+          7
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 9,
+        "title": "Criar Factories e Seeders",
+        "description": "Implementar factories para geração de dados de teste e seeders para popular banco",
+        "details": "Atualizar UserFactory com campo data_nascimento, criar ContatoFactory com tipos email/telefone, criar DatabaseSeeder para gerar 50 usuários com contatos aleatórios, configurar relacionamentos corretos",
+        "testStrategy": "Executar seeders e verificar criação de dados consistentes no banco",
+        "priority": "medium",
+        "dependencies": [
+          8
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 10,
+        "title": "Implementar Testes Automatizados",
+        "description": "Criar testes unitários e de feature para validar funcionalidades do sistema",
+        "details": "Criar testes unitários para models (relacionamentos, validações), testes de feature para CRUD via Filament, testes de factories e seeders, configurar database de teste separada",
+        "testStrategy": "Executar suite completa de testes com php artisan test e verificar 100% de sucesso",
+        "priority": "high",
+        "dependencies": [
+          9
+        ],
+        "status": "pending",
+        "subtasks": []
+      }
+    ],
+    "metadata": {
+      "created": "2025-09-04T22:49:02.798Z",
+      "updated": "2025-09-04T22:52:57.863Z",
+      "description": "Tasks for master context"
+    }
+  }
+}

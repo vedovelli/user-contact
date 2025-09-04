@@ -1,0 +1,93 @@
+{
+	"meta": {
+		"generatedAt": "2025-09-04T23:09:19.368Z",
+		"tasksAnalyzed": 10,
+		"totalTasks": 10,
+		"analysisCount": 10,
+		"thresholdScore": 5,
+		"projectName": "Taskmaster",
+		"usedResearch": false
+	},
+	"complexityAnalysis": [
+		{
+			"taskId": 1,
+			"taskTitle": "Instalar e Configurar PHPStan",
+			"complexityScore": 3,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Detalhe os passos específicos para instalar PHPStan: 1) Instalar phpstan/phpstan via Composer como dev dependency, 2) Criar arquivo phpstan.neon na raiz com configuração de nível máximo, paths para app/ e tests/, 3) Adicionar script 'analyse' no composer.json, 4) Executar primeira análise e ajustar configurações conforme necessário",
+			"reasoning": "Tarefa relativamente simples pois PHPStan tem configuração padrão bem estabelecida. O projeto é novo então poucos erros são esperados."
+		},
+		{
+			"taskId": 2,
+			"taskTitle": "Configurar Scripts de Quality Assurance no Composer",
+			"complexityScore": 2,
+			"recommendedSubtasks": 3,
+			"expansionPrompt": "Organize a configuração dos scripts: 1) Adicionar scripts individuais no composer.json (format, analyse, test), 2) Criar script quality-check que executa todos em sequência com controle de erros, 3) Testar execução de cada script individualmente para validar funcionamento",
+			"reasoning": "Tarefa muito simples, apenas modificação de arquivo JSON. Laravel Pint e PHPUnit já estão configurados, PHPStan será instalado na tarefa anterior."
+		},
+		{
+			"taskId": 3,
+			"taskTitle": "Instalar e Configurar Filament",
+			"complexityScore": 4,
+			"recommendedSubtasks": 5,
+			"expansionPrompt": "Detalhe a instalação completa do Filament: 1) Instalar filament/filament via Composer, 2) Executar comando de instalação de panels, 3) Configurar painel administrativo padrão, 4) Criar usuário admin inicial via seeder ou tinker, 5) Testar acesso ao painel e funcionalidade de login",
+			"reasoning": "Complexidade média pois envolve instalação de pacote grande, configuração de painel, criação de usuário admin. Requer configuração de autenticação."
+		},
+		{
+			"taskId": 4,
+			"taskTitle": "Criar Migration e Model para Contatos",
+			"complexityScore": 5,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Implemente a estrutura completa de Contatos: 1) Criar migration para tabela contatos com todos os campos necessários e chaves estrangeiras, 2) Criar enum TipoContato para email/telefone, 3) Criar model Contato com fillable, relacionamentos e validações, 4) Executar migration e testar estrutura via Tinker",
+			"reasoning": "Complexidade média-alta pois envolve design de banco, relacionamentos, enums PHP 8, e precisa integrar bem com o model User existente."
+		},
+		{
+			"taskId": 5,
+			"taskTitle": "Atualizar Model User com Relacionamentos",
+			"complexityScore": 4,
+			"recommendedSubtasks": 3,
+			"expansionPrompt": "Atualize o model User: 1) Criar migration para adicionar campo data_nascimento nullable na tabela users, 2) Atualizar model User adicionando data_nascimento ao fillable e casts(), 3) Adicionar relacionamento hasMany para contatos e testar via Tinker",
+			"reasoning": "Tarefa de complexidade média pois modifica estrutura existente. Precisa ser cuidadoso com migrations e manter compatibilidade com User existente."
+		},
+		{
+			"taskId": 6,
+			"taskTitle": "Criar Filament Resource para Usuários",
+			"complexityScore": 6,
+			"recommendedSubtasks": 5,
+			"expansionPrompt": "Implemente CRUD completo de usuários: 1) Gerar UserResource via artisan, 2) Configurar formulário com campos nome, email, data_nascimento, 3) Configurar tabela com colunas, filtros e paginação, 4) Implementar exibição de contatos relacionados, 5) Testar todas operações CRUD",
+			"reasoning": "Complexidade alta pois envolve interface administrativa complexa, relacionamentos, validações e UX. Requer conhecimento específico do Filament."
+		},
+		{
+			"taskId": 7,
+			"taskTitle": "Criar Filament Resource para Contatos",
+			"complexityScore": 7,
+			"recommendedSubtasks": 6,
+			"expansionPrompt": "Implemente CRUD de contatos com validações específicas: 1) Gerar ContatoResource, 2) Configurar select para usuário com relacionamento, 3) Implementar select para tipo de contato, 4) Adicionar validações específicas por tipo (email vs telefone), 5) Configurar filtros por usuário e tipo, 6) Testar todas operações e validações",
+			"reasoning": "Complexidade alta pois requer validações condicionais, relacionamentos complexos, filtros avançados e lógica específica por tipo de contato."
+		},
+		{
+			"taskId": 8,
+			"taskTitle": "Implementar Dashboard com Métricas",
+			"complexityScore": 5,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Crie dashboard com widgets informativos: 1) Criar widgets para contadores de usuários e contatos, 2) Implementar widget de distribuição de contatos por tipo, 3) Criar gráfico de usuários cadastrados por mês, 4) Integrar widgets ao dashboard do Filament e testar atualização em tempo real",
+			"reasoning": "Complexidade média-alta pois envolve widgets customizados, queries agregadas, gráficos e integração com dashboard do Filament."
+		},
+		{
+			"taskId": 9,
+			"taskTitle": "Criar Factories e Seeders",
+			"complexityScore": 4,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Implemente geração de dados de teste: 1) Atualizar UserFactory adicionando campo data_nascimento, 2) Criar ContatoFactory com geração aleatória de tipos email/telefone, 3) Atualizar DatabaseSeeder para criar 50 usuários com contatos, 4) Testar seeders e verificar consistência dos dados gerados",
+			"reasoning": "Complexidade média pois requer factories bem estruturadas, relacionamentos corretos e dados realistas. UserFactory já existe como base."
+		},
+		{
+			"taskId": 10,
+			"taskTitle": "Implementar Testes Automatizados",
+			"complexityScore": 8,
+			"recommendedSubtasks": 6,
+			"expansionPrompt": "Crie suite completa de testes: 1) Criar testes unitários para models (User, Contato, relacionamentos), 2) Criar testes unitários para enum TipoContato, 3) Implementar testes de feature para CRUD via Filament, 4) Criar testes para factories e seeders, 5) Configurar database de teste separada, 6) Configurar coverage e executar suite completa",
+			"reasoning": "Complexidade muito alta pois requer testes abrangentes para todas as funcionalidades, testes de integração com Filament, configuração de ambiente de teste e conhecimento avançado de testing."
+		}
+	]
+}
