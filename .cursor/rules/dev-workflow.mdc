@@ -12,6 +12,8 @@
 -   **Compreender** o escopo completo da tarefa
 -   **Criar** um plano de ação detalhado
 -   **Identificar** dependências e requisitos técnicos
+-   **Localizar** arquivos relevantes usando Serena MCP
+-   **Analisar** código existente com busca de símbolos
 -   **Obter** tarefa do Taskmaster se não fornecida diretamente
 
 ### **2. Preparação do Ambiente**
@@ -47,6 +49,8 @@
 -   **Implementar** a solução seguindo as especificações
 -   **Seguir** padrões de código do projeto
 -   **Documentar** mudanças significativas
+-   **Utilizar Serena MCP** para localização eficiente de arquivos e símbolos
+-   **Aplicar modificações** usando Regular Expressions quando apropriado
 -   **Atualizar** progresso na tarefa se necessário:
 
     ```bash
@@ -184,6 +188,90 @@ basic-memory list-projects
 basic-memory write-note --title="Título da Nota" --content="Conteúdo..." --folder="tarefas"
 ```
 
+### **Serena MCP Tools**
+
+```bash
+# Localizar arquivos por padrão
+glob_file_search(glob_pattern="*.php", target_directory="app/")
+
+# Buscar símbolos específicos (classes, funções, métodos)
+grep(pattern="class.*Controller", path="app/Http/Controllers/")
+
+# Buscar com contexto (linhas antes e depois)
+grep(pattern="function.*test", path="tests/", -A=3, -B=2)
+
+# Buscar em múltiplos tipos de arquivo
+grep(pattern="Route::", type="php", path="routes/")
+
+# Buscar apenas nomes de arquivos que correspondem ao padrão
+grep(pattern=".*", path="app/", output_mode="files_with_matches")
+
+# Contar ocorrências
+grep(pattern="use.*Illuminate", path="app/", output_mode="count")
+
+# Buscar com regex complexa
+grep(pattern="public function \w+\(.*\): \w+", path="app/Models/", multiline=true)
+
+# Buscar em arquivos específicos
+grep(pattern="protected \$fillable", path="app/Models/User.php")
+
+# Buscar com case insensitive
+grep(pattern="laravel", path="composer.json", -i=true)
+```
+
+### **Casos de Uso Serena MCP**
+
+#### **Localização de Arquivos**
+
+-   **Buscar** arquivos por extensão: `glob_file_search(glob_pattern="*.php")`
+-   **Encontrar** arquivos específicos: `glob_file_search(glob_pattern="*Controller.php")`
+-   **Localizar** arquivos de configuração: `glob_file_search(glob_pattern="*.neon")`
+
+#### **Busca de Símbolos**
+
+-   **Classes**: `grep(pattern="^class \w+", path="app/")`
+-   **Métodos**: `grep(pattern="public function \w+", path="app/")`
+-   **Imports**: `grep(pattern="^use ", path="app/")`
+-   **Constantes**: `grep(pattern="const \w+", path="app/")`
+
+#### **Análise de Código**
+
+-   **Relacionamentos**: `grep(pattern="hasMany|belongsTo", path="app/Models/")`
+-   **Validações**: `grep(pattern="rules\(\)", path="app/Http/Requests/")`
+-   **Middleware**: `grep(pattern="middleware", path="app/Http/")`
+
+#### **Modificações com Regex**
+
+-   **Renomear** métodos: Use regex para encontrar padrões e aplicar mudanças consistentes
+-   **Refatorar** imports: Localizar e atualizar imports usando padrões regex
+-   **Padronizar** formatação: Aplicar mudanças de formatação usando regex
+-   **Atualizar** sintaxe: Modernizar código usando padrões regex específicos
+
+### **Melhores Práticas Serena MCP**
+
+#### **Quando Usar Serena MCP**
+
+-   **Antes de implementar**: Para entender estrutura existente
+-   **Durante refatoração**: Para localizar padrões a serem modificados
+-   **Para análise**: Para encontrar dependências e relacionamentos
+-   **Para debugging**: Para localizar problemas específicos no código
+
+#### **Estratégias de Busca Eficientes**
+
+-   **Começar amplo**: Use `glob_file_search` para encontrar arquivos relevantes
+-   **Refinar busca**: Use `grep` com padrões específicos
+-   **Usar contexto**: Adicione `-A` e `-B` para ver linhas adjacentes
+-   **Combinar ferramentas**: Use `codebase_search` + `grep` para análise completa
+
+#### **Regex Patterns Úteis**
+
+-   **Classes**: `^class \w+`
+-   **Métodos**: `(public|private|protected) function \w+`
+-   **Imports**: `^use [A-Z]`
+-   **Relacionamentos**: `(hasMany|belongsTo|hasOne|belongsToMany)`
+-   **Validações**: `rules\(\)|validate\(\)`
+-   **Rotas**: `Route::(get|post|put|delete)`
+
 ### **QA Scripts**
 
 ```bash
@@ -215,6 +303,8 @@ git push origin feature/nome-da-tarefa
 ## **Critérios de Sucesso**
 
 -   ✅ Tarefa marcada como "in-progress" no início
+-   ✅ Serena MCP utilizado para localização eficiente de arquivos/símbolos
+-   ✅ Modificações aplicadas usando regex quando apropriado
 -   ✅ Código formatado corretamente (Pint)
 -   ✅ Todos os testes passando
 -   ✅ Feature branch criada e isolada
