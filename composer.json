@@ -60,7 +60,13 @@
             "@php artisan config:clear --ansi",
             "@php artisan test"
         ],
-        "analyse": "vendor/bin/phpstan analyse"
+        "analyse": "vendor/bin/phpstan analyse",
+        "format": "vendor/bin/pint",
+        "quality-check": [
+            "@format",
+            "@analyse",
+            "@test"
+        ]
     },
     "extra": {
         "laravel": {
