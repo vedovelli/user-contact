@@ -1,9 +1,3 @@
----
-description: Fluxo de desenvolvimento padronizado para o projeto user-contact
-globs: **/*
-alwaysApply: true
----
-
 # Fluxo de Desenvolvimento - User Contact
 
 ## **Contexto Inicial**
@@ -18,13 +12,28 @@ alwaysApply: true
 -   **Compreender** o escopo completo da tarefa
 -   **Criar** um plano de ação detalhado
 -   **Identificar** dependências e requisitos técnicos
+-   **Obter** tarefa do Taskmaster se não fornecida diretamente
 
 ### **2. Preparação do Ambiente**
 
 -   **Criar** feature branch isolada: `git checkout -b feature/nome-da-tarefa`
 -   **Verificar** status do repositório: `git status`
 
-### **3. Quality Assurance Pré-Desenvolvimento**
+### **3. Início da Tarefa (Taskmaster)**
+
+-   **Marcar** tarefa como "in-progress" no Taskmaster:
+
+    ```bash
+    # Via MCP Tool
+    set_task_status(id="ID_DA_TAREFA", status="in-progress")
+
+    # Via CLI
+    task-master set-status --id=ID_DA_TAREFA --status=in-progress
+    ```
+
+-   **Verificar** dependências da tarefa se houver
+
+### **4. Quality Assurance Pré-Desenvolvimento**
 
 -   **Executar** scripts de QA para validar estado inicial:
     ```bash
@@ -33,13 +42,22 @@ alwaysApply: true
     ```
 -   **Garantir** que não há problemas prévios no código
 
-### **4. Desenvolvimento**
+### **5. Desenvolvimento**
 
 -   **Implementar** a solução seguindo as especificações
 -   **Seguir** padrões de código do projeto
 -   **Documentar** mudanças significativas
+-   **Atualizar** progresso na tarefa se necessário:
 
-### **5. Quality Assurance Pós-Desenvolvimento**
+    ```bash
+    # Via MCP Tool
+    update_subtask(id="ID_DA_TAREFA", prompt="Progresso: implementação concluída...")
+
+    # Via CLI
+    task-master update-subtask --id=ID_DA_TAREFA --prompt="Progresso: implementação concluída..."
+    ```
+
+### **6. Quality Assurance Pós-Desenvolvimento**
 
 -   **Executar** novamente os scripts de QA:
     ```bash
@@ -48,13 +66,45 @@ alwaysApply: true
     ```
 -   **Validar** que o desenvolvimento atende aos padrões de qualidade
 
-### **6. Commit e Versionamento**
+### **7. Commit e Versionamento**
 
 -   **Adicionar** arquivos modificados: `git add .`
 -   **Criar** commit descritivo: `git commit -m "feat: descrição clara da implementação"`
 -   **Push** para repositório: `git push origin feature/nome-da-tarefa`
 
-### **7. Documentação e Log**
+### **8. Finalização da Tarefa (Taskmaster)**
+
+-   **Marcar** tarefa como "done" no Taskmaster:
+
+    ```bash
+    # Via MCP Tool
+    set_task_status(id="ID_DA_TAREFA", status="done")
+
+    # Via CLI
+    task-master set-status --id=ID_DA_TAREFA --status=done
+    ```
+
+-   **Atualizar** detalhes finais da tarefa:
+
+    ```bash
+    # Via MCP Tool
+    update_task(id="ID_DA_TAREFA", prompt="Implementação finalizada com sucesso. Principais mudanças: ...")
+
+    # Via CLI
+    task-master update-task --id=ID_DA_TAREFA --prompt="Implementação finalizada com sucesso. Principais mudanças: ..."
+    ```
+
+### **9. Documentação e Log**
+
+-   **Fazer switch** para o projeto user-contact no Basic Memory MCP:
+
+    ```bash
+    # Via MCP Tool
+    switch_project(project_name="user-contact")
+
+    # Via CLI
+    basic-memory switch-project user-contact
+    ```
 
 -   **Utilizar** Basic Memory MCP projeto user-contact para registrar:
     -   Tarefa completada
@@ -63,6 +113,76 @@ alwaysApply: true
     -   Próximos passos (se houver)
 
 ## **Comandos de Referência**
+
+### **Taskmaster MCP Tools**
+
+```bash
+# Obter tarefa atual
+get_task(id="ID_DA_TAREFA")
+
+# Marcar como in-progress
+set_task_status(id="ID_DA_TAREFA", status="in-progress")
+
+# Marcar como done
+set_task_status(id="ID_DA_TAREFA", status="done")
+
+# Atualizar progresso
+update_subtask(id="ID_DA_TAREFA", prompt="Progresso: ...")
+
+# Atualizar detalhes finais
+update_task(id="ID_DA_TAREFA", prompt="Implementação finalizada...")
+```
+
+### **Taskmaster CLI Commands**
+
+```bash
+# Obter tarefa atual
+task-master show ID_DA_TAREFA
+
+# Marcar como in-progress
+task-master set-status --id=ID_DA_TAREFA --status=in-progress
+
+# Marcar como done
+task-master set-status --id=ID_DA_TAREFA --status=done
+
+# Atualizar progresso
+task-master update-subtask --id=ID_DA_TAREFA --prompt="Progresso: ..."
+
+# Atualizar detalhes finais
+task-master update-task --id=ID_DA_TAREFA --prompt="Implementação finalizada..."
+```
+
+### **Basic Memory MCP Tools**
+
+```bash
+# Fazer switch para projeto user-contact
+switch_project(project_name="user-contact")
+
+# Verificar projeto atual
+get_current_project()
+
+# Listar projetos disponíveis
+list_memory_projects()
+
+# Escrever nota no projeto atual
+write_note(title="Título da Nota", content="Conteúdo...", folder="tarefas")
+```
+
+### **Basic Memory CLI Commands**
+
+```bash
+# Fazer switch para projeto user-contact
+basic-memory switch-project user-contact
+
+# Verificar projeto atual
+basic-memory get-current-project
+
+# Listar projetos disponíveis
+basic-memory list-projects
+
+# Escrever nota
+basic-memory write-note --title="Título da Nota" --content="Conteúdo..." --folder="tarefas"
+```
 
 ### **QA Scripts**
 
@@ -94,13 +214,22 @@ git push origin feature/nome-da-tarefa
 
 ## **Critérios de Sucesso**
 
+-   ✅ Tarefa marcada como "in-progress" no início
 -   ✅ Código formatado corretamente (Pint)
 -   ✅ Todos os testes passando
 -   ✅ Feature branch criada e isolada
 -   ✅ Commit descritivo realizado
+-   ✅ Tarefa marcada como "done" no final
+-   ✅ Projeto user-contact ativo no Basic Memory
 -   ✅ Log registrado no Basic Memory
 
 ## **Exceções e Problemas**
+
+-   **Se QA falhar**: Corrigir problemas antes de prosseguir
+-   **Se testes falharem**: Investigar e corrigir antes do commit
+-   **Se houver conflitos**: Resolver antes de continuar o desenvolvimento
+-   **Se tarefa não existir**: Criar nova tarefa via Taskmaster antes de iniciar
+-   **Se dependências não estiverem prontas**: Aguardar ou reordenar tarefas
 
 -   **Se QA falhar**: Corrigir problemas antes de prosseguir
 -   **Se testes falharem**: Investigar e corrigir antes do commit

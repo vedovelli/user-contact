@@ -9,7 +9,7 @@
         "testStrategy": "Executar PHPStan e verificar se análise funciona sem erros de configuração",
         "priority": "high",
         "dependencies": [],
-        "status": "pending",
+        "status": "done",
         "subtasks": [
           {
             "id": 1,
@@ -17,7 +17,7 @@
             "description": "Instalar phpstan/phpstan como dependência de desenvolvimento usando Composer",
             "dependencies": [],
             "details": "Executar comando 'composer require --dev phpstan/phpstan' para instalar PHPStan como dependência de desenvolvimento no projeto",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -28,7 +28,7 @@
               "1.1"
             ],
             "details": "Criar arquivo phpstan.neon na raiz com level: max, paths para app/ e tests/, e outras configurações necessárias para análise estática completa",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -39,7 +39,7 @@
               "1.2"
             ],
             "details": "Adicionar script 'analyse': 'vendor/bin/phpstan analyse' na seção scripts do composer.json para facilitar execução da análise",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -50,7 +50,7 @@
               "1.3"
             ],
             "details": "Executar 'composer run analyse' para primeira análise, identificar possíveis problemas de configuração e ajustar phpstan.neon conforme necessário",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           }
         ]
@@ -429,7 +429,50 @@
           7
         ],
         "status": "pending",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Criar widgets de contadores básicos",
+            "description": "Implementar widgets do Filament para exibir contador total de usuários e contador total de contatos",
+            "dependencies": [],
+            "details": "Criar StatsOverviewWidget personalizado com dois cards: um mostrando total de usuários cadastrados usando User::count() e outro mostrando total de contatos usando Contato::count(). Configurar ícones apropriados e cores para cada widget.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implementar widget de distribuição de contatos por tipo",
+            "description": "Criar widget que exibe distribuição de contatos agrupados por tipo (email/telefone)",
+            "dependencies": [
+              "8.1"
+            ],
+            "details": "Desenvolver ChartWidget do Filament usando gráfico de pizza ou barra para mostrar quantidade de contatos por tipo. Implementar query agregada Contato::groupBy('tipo')->selectRaw('tipo, count(*) as total')->get() e formatar dados para o gráfico.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Criar gráfico de usuários cadastrados por mês",
+            "description": "Implementar widget com gráfico temporal mostrando evolução de cadastros de usuários por mês",
+            "dependencies": [
+              "8.2"
+            ],
+            "details": "Criar LineChartWidget do Filament para exibir cadastros mensais. Implementar query User::selectRaw('YEAR(created_at) as ano, MONTH(created_at) as mes, count(*) as total')->groupBy('ano', 'mes')->orderBy('ano')->orderBy('mes')->get() e formatar dados para gráfico de linha temporal.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Integrar widgets ao dashboard e testar funcionalidades",
+            "description": "Registrar todos os widgets no dashboard do Filament e verificar funcionamento em tempo real",
+            "dependencies": [
+              "8.3"
+            ],
+            "details": "Registrar widgets na classe AdminPanelProvider ou DashboardPage do Filament. Configurar ordem de exibição e layout responsivo. Testar atualização automática dos dados após criar/editar usuários e contatos. Verificar performance das queries e otimizar se necessário.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
       },
       {
         "id": 9,
@@ -442,7 +485,50 @@
           8
         ],
         "status": "pending",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Atualizar UserFactory com campo data_nascimento",
+            "description": "Modificar a UserFactory existente para incluir geração do campo data_nascimento com datas realistas",
+            "dependencies": [],
+            "details": "Editar database/factories/UserFactory.php adicionando o campo 'data_nascimento' com fake()->dateTimeBetween('-80 years', '-18 years') para gerar idades entre 18 e 80 anos",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Criar ContatoFactory com tipos email/telefone",
+            "description": "Implementar factory para model Contato com geração aleatória de emails e telefones",
+            "dependencies": [
+              "9.1"
+            ],
+            "details": "Criar database/factories/ContatoFactory.php com campos usuario_id, tipo (randomizando entre TipoContato::EMAIL e TipoContato::TELEFONE), e valor correspondente usando fake()->email() ou fake()->phoneNumber()",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Configurar DatabaseSeeder para gerar usuários e contatos",
+            "description": "Atualizar DatabaseSeeder para criar 50 usuários com contatos relacionados",
+            "dependencies": [
+              "9.2"
+            ],
+            "details": "Modificar database/seeders/DatabaseSeeder.php para criar 50 usuários usando User::factory(), e para cada usuário criar entre 1-3 contatos usando Contato::factory(), garantindo relacionamento correto",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Testar seeders e validar dados gerados",
+            "description": "Executar seeders e verificar consistência e qualidade dos dados criados",
+            "dependencies": [
+              "9.3"
+            ],
+            "details": "Executar php artisan db:seed e verificar no banco: usuários com data_nascimento válida, contatos com tipos corretos, relacionamentos funcionando, dados realistas e consistentes",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
       },
       {
         "id": 10,
@@ -460,7 +546,7 @@
     ],
     "metadata": {
       "created": "2025-09-04T22:49:02.798Z",
-      "updated": "2025-09-04T22:52:57.863Z",
+      "updated": "2025-09-05T00:01:06.195Z",
       "description": "Tasks for master context"
     }
   }
