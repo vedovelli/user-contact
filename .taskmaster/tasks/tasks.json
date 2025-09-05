@@ -541,7 +541,70 @@
           9
         ],
         "status": "pending",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Criar testes unitários para Models",
+            "description": "Implementar testes unitários para User, Contato e seus relacionamentos",
+            "dependencies": [],
+            "details": "Criar testes para validar relacionamentos hasMany/belongsTo entre User e Contato, testar fillable fields, validações de model, mutators/accessors se existirem, e comportamentos específicos dos models",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Criar testes unitários para Enum TipoContato",
+            "description": "Implementar testes para validar funcionamento do enum TipoContato",
+            "dependencies": [],
+            "details": "Testar valores válidos do enum (email/telefone), verificar métodos auxiliares se existirem, validar conversão de string para enum e comportamento em casos inválidos",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Implementar testes de feature para CRUD via Filament",
+            "description": "Criar testes de integração para operações CRUD no painel administrativo",
+            "dependencies": [
+              "10.1"
+            ],
+            "details": "Testar criação, listagem, edição e exclusão de usuários e contatos via interface Filament, validar formulários, filtros, paginação e autorização de acesso ao painel",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Criar testes para Factories e Seeders",
+            "description": "Implementar testes para validar funcionamento de factories e seeders",
+            "dependencies": [
+              "10.2"
+            ],
+            "details": "Testar UserFactory e ContatoFactory para geração correta de dados fake, validar DatabaseSeeder para criação de 50 usuários com contatos, verificar relacionamentos e tipos corretos",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Configurar database de teste separada",
+            "description": "Configurar ambiente de teste com banco de dados isolado",
+            "dependencies": [],
+            "details": "Configurar arquivo phpunit.xml para usar banco de dados de teste, criar conexão sqlite in-memory ou database separada, configurar migrations automáticas para testes",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Configurar coverage e executar suite completa",
+            "description": "Configurar relatórios de cobertura e validar execução completa dos testes",
+            "dependencies": [
+              "10.3",
+              "10.4",
+              "10.5"
+            ],
+            "details": "Configurar Xdebug ou PCOV para coverage, executar php artisan test com relatório de cobertura, validar 100% de sucesso nos testes, documentar como executar suite completa",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
       }
     ],
     "metadata": {
