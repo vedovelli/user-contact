@@ -65,7 +65,7 @@
         "dependencies": [
           1
         ],
-        "status": "in-progress",
+        "status": "done",
         "subtasks": [
           {
             "id": 1,
@@ -73,7 +73,7 @@
             "description": "Configurar scripts format, analyse e test no arquivo composer.json",
             "dependencies": [],
             "details": "Adicionar seção 'scripts' no composer.json com: 'format': 'vendor/bin/pint', 'analyse': 'vendor/bin/phpstan analyse', 'test': 'vendor/bin/phpunit'",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -84,7 +84,7 @@
               "2.1"
             ],
             "details": "Adicionar script 'quality-check' que executa format, analyse e test em sequência, configurando controle de erros para interromper execução se algum falhar",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -95,7 +95,7 @@
               "2.2"
             ],
             "details": "Executar composer format, composer analyse, composer test e composer quality-check individualmente, verificar saída de cada comando e confirmar que executam corretamente",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           }
         ]
@@ -609,7 +609,7 @@
     ],
     "metadata": {
       "created": "2025-09-04T22:49:02.798Z",
-      "updated": "2025-09-05T22:34:48.626Z",
+      "updated": "2025-09-05T22:36:35.358Z",
       "description": "Tasks for master context"
     }
   }
